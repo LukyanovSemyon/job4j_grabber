@@ -16,9 +16,8 @@ public class AlertRabbit {
     private Connection connection;
     private final Properties properties;
 
-    public AlertRabbit(Properties properties) throws SQLException {
+    public AlertRabbit(Properties properties) {
         this.properties = properties;
-        initConnection();
     }
 
     private static Properties getProperties() {
@@ -32,16 +31,15 @@ public class AlertRabbit {
         return prs;
     }
 
-    private void initConnection() throws SQLException {
-        String url = properties.getProperty("postgresql.url");
-        String login = properties.getProperty("postgresql.login");
-        String password = properties.getProperty("postgresql.password");
-        connection = DriverManager.getConnection(url, login, password);
-    }
-
-    public void close() throws Exception {
-        if (connection != null) {
-            connection.close();
+    private void initConnection() {
+        try (Connection cn = DriverManager.getConnection(
+                properties.getProperty("postgresql.url"),
+                properties.getProperty("postgresql.login"),
+                properties.getProperty("postgresql.password"))) {
+            connection = cn;
+            job();
+        } catch (SQLException s) {
+            s.printStackTrace();
         }
     }
 
@@ -67,7 +65,6 @@ public class AlertRabbit {
             Thread.sleep(10000);
             scheduler.shutdown();
             System.out.println(connection);
-            close();
         } catch (Exception se) {
             se.printStackTrace();
         }
@@ -81,9 +78,9 @@ public class AlertRabbit {
         }
     }
 
-    public static void main(String[] args) throws SQLException {
+    public static void main(String[] args) {
         AlertRabbit rabbit = new AlertRabbit(getProperties());
-        rabbit.job();
+        rabbit.initConnection();
     }
 
     public static class Rabbit implements Job {
