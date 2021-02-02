@@ -5,6 +5,7 @@ import org.jsoup.nodes.Document;
 import org.jsoup.nodes.Element;
 import org.jsoup.select.Elements;
 
+import java.io.IOException;
 import java.util.Calendar;
 import java.util.Date;
 
@@ -24,6 +25,18 @@ public class SqlRuParse {
                 }
             }
         }
+        Post post = post("https://www.sql.ru/forum/1325330"
+                + "/lidy-be-fe-senior-cistemnye-analitiki-qa-i-devops-moskva-do-200t");
+        System.out.println(post);
+    }
+
+    public static Post post(String a) throws IOException {
+        Document doc = Jsoup.connect(a).get();
+        Elements msgBody = doc.select(".msgBody");
+        Elements msgFooter = doc.select(".msgFooter");
+        Element body = msgBody.get(1);
+        String date = msgFooter.get(0).text().split("\\[")[0];
+        return new Post(body.text(), date(date));
     }
 
     public static Date date(String date) {
