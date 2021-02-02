@@ -73,7 +73,7 @@ public class AlertRabbit {
     public void createTable() throws SQLException {
         try (Statement statement = connection.createStatement()) {
             String sql;
-            sql = "create table if not exists rabbit(id serial primary key, created_date long);";
+            sql = "create table if not exists rabbit(id serial primary key, created_date bigint);";
             statement.execute(sql);
         }
     }
