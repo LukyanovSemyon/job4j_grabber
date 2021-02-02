@@ -10,16 +10,18 @@ import java.util.Date;
 
 public class SqlRuParse {
     public static void main(String[] args) throws Exception {
-        Document doc = Jsoup.connect("https://www.sql.ru/forum/job-offers").get();
-        Elements row = doc.select("tr");
-        for (Element td : row) {
-            Elements postslisttopic = td.select(".postslisttopic");
-            for (Element a : postslisttopic) {
-                Element href = a.child(0);
-                String date = td.child(5).text();
-                System.out.println(href.attr("href"));
-                System.out.println(href.text());
-                System.out.println(date(date));
+        for (int i = 1; i <= 5; i++) {
+            Document doc = Jsoup.connect("https://www.sql.ru/forum/job-offers/" + i).get();
+            Elements row = doc.select("tr");
+            for (Element td : row) {
+                Elements postslisttopic = td.select(".postslisttopic");
+                for (Element a : postslisttopic) {
+                    Element href = a.child(0);
+                    String date = td.child(5).text();
+                    System.out.println(href.attr("href"));
+                    System.out.println(href.text());
+                    System.out.println(date(date));
+                }
             }
         }
     }
