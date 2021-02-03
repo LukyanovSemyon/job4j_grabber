@@ -16,7 +16,7 @@ public class Post {
         this.createdDate = createdDate;
     }
 
-    public Post(int id, String title, String link, String description, Date createdDate) {
+    public Post(int id, String title, String description, String link, Date createdDate) {
         this.id = id;
         this.title = title;
         this.link = link;

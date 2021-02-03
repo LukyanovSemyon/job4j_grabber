@@ -46,7 +46,7 @@ public class PsqlStore implements Store, AutoCloseable {
                             resultSet.getString("name"),
                             resultSet.getString("text"),
                             resultSet.getString("link"),
-                            resultSet.getDate("created")
+                            new java.util.Date(resultSet.getTimestamp("created").getTime())
                     ));
                 }
             }
@@ -70,7 +70,7 @@ public class PsqlStore implements Store, AutoCloseable {
                             resultSet.getString("name"),
                             resultSet.getString("text"),
                             resultSet.getString("link"),
-                            resultSet.getDate("created")
+                            new java.util.Date(resultSet.getTimestamp("created").getTime())
                     );
                 }
             }
