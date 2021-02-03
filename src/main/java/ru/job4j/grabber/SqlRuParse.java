@@ -6,33 +6,10 @@ import org.jsoup.nodes.Element;
 import org.jsoup.select.Elements;
 
 import java.io.IOException;
-import java.io.InputStream;
 import java.util.*;
 
 public class SqlRuParse implements Parse {
     public SqlRuParse() {
-    }
-
-    public static void main(String[] args) throws Exception {
-        PsqlStore pS = new PsqlStore(getProperties());
-        List<Post> list = new SqlRuParse().list("https://www.sql.ru/forum/job-offers/");
-        for (Post p : list) {
-            pS.save(p);
-        }
-        System.out.println(pS.findById("5"));
-        System.out.println(pS.getAll());
-        pS.close();
-    }
-
-    private static Properties getProperties() {
-        Properties prs = new Properties();
-        try (InputStream io = SqlRuParse.class.getClassLoader()
-                .getResourceAsStream("grabber.properties")) {
-            prs.load(io);
-        } catch (IOException e) {
-            e.printStackTrace();
-        }
-        return prs;
     }
 
     @Override
