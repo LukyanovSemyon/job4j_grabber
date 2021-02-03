@@ -3,6 +3,7 @@ package ru.job4j.grabber;
 import java.util.Date;
 
 public class Post {
+    private int id;
     private final String title;
     private final String link;
     private final String description;
@@ -13,6 +14,18 @@ public class Post {
         this.description = description;
         this.link = link;
         this.createdDate = createdDate;
+    }
+
+    public Post(int id, String title, String link, String description, Date createdDate) {
+        this.id = id;
+        this.title = title;
+        this.link = link;
+        this.description = description;
+        this.createdDate = createdDate;
+    }
+
+    public int getId() {
+        return id;
     }
 
     public String getTitle() {
@@ -33,7 +46,8 @@ public class Post {
 
     @Override
     public String toString() {
-        return "Post{" + "title='" + title + '\''
+        return "Post{" + "id=" + id
+                + "title='" + title + '\''
                 + ", link='" + link + '\''
                 + ", description='" + description + '\''
                 + ", createdDate=" + createdDate + '}'

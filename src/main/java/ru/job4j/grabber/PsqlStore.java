@@ -41,6 +41,7 @@ public class PsqlStore implements Store, AutoCloseable {
             try (ResultSet resultSet = statement.executeQuery()) {
                 while (resultSet.next()) {
                     items.add(new Post(
+                            resultSet.getInt("id"),
                             resultSet.getString("name"),
                             resultSet.getString("text"),
                             resultSet.getString("link"),
@@ -64,6 +65,7 @@ public class PsqlStore implements Store, AutoCloseable {
             try (ResultSet resultSet = statement.executeQuery()) {
                 while (resultSet.next()) {
                     post = new Post(
+                            resultSet.getInt("id"),
                             resultSet.getString("name"),
                             resultSet.getString("text"),
                             resultSet.getString("link"),
