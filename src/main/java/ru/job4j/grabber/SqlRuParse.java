@@ -33,6 +33,7 @@ public class SqlRuParse implements Parse {
         Elements msgBody = doc.select(".msgBody");
         Elements msgFooter = doc.select(".msgFooter");
         Element title = messageHeader.get(0);
+        title.getElementsByClass("newmessage").remove().first();
         Element body = msgBody.get(1);
         String date = msgFooter.get(0).text().split("\\[")[0];
         return new Post(title.text(), body.text(), link, DateParse.date(date));
